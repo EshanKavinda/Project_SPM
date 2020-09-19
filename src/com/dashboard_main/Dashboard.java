@@ -8,6 +8,7 @@ package com.dashboard_main;
 import com.dashboard.components.Availability;
 import com.dashboard.components.Lectures;
 import com.dashboard.components.Location;
+import com.dashboard.components.Location1;
 import com.dashboard.components.Sessions;
 import com.dashboard.components.Statistics;
 import com.dashboard.components.Student;
@@ -302,7 +303,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         jTabbedPane2.remove(0);
-        jTabbedPane2.add("Location", new Location());
+        jTabbedPane2.add("Location", new Location(jTabbedPane2));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -317,7 +318,9 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         jTabbedPane2.remove(0);
-        jTabbedPane2.add("Availability", new Availability());
+//        jTabbedPane2.add("Availability", new Availability());
+        jTabbedPane2.add("Availability", new Location1());
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -350,6 +353,8 @@ public class Dashboard extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

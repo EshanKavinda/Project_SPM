@@ -5,8 +5,15 @@
  */
 package com.dashboard.components;
 
+import com.dashboard.subcomponents.AddEditBuilding;
+import com.dashboard.subcomponents.AddEditRoom;
+import com.dashboard.subcomponents.ViewBuilding;
+import com.dashboard.subcomponents.ViewRoom;
+import com.models.Building;
+import com.models.Room;
 import com.services.LecturerService;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -18,8 +25,11 @@ public class Location extends javax.swing.JPanel {
     /**
      * Creates new form Location
      */
-    public Location() {
+    private JTabbedPane jTabbedPane;
+    
+    public Location(JTabbedPane jTabbedPane) {
         initComponents();
+        this.jTabbedPane = jTabbedPane;
         
 //        LecturerService service = new LecturerService();
 //        building_jTable.setModel(DbUtils.resultSetToTableModel(service.tableLoadbuilding()));
@@ -37,8 +47,8 @@ public class Location extends javax.swing.JPanel {
 
         addSubjectsBtn = new javax.swing.JButton();
         viewSubjectsBtn = new javax.swing.JButton();
-        addSubjectsBtn1 = new javax.swing.JButton();
-        viewSubjectsBtn1 = new javax.swing.JButton();
+        addBulidingBtn = new javax.swing.JButton();
+        addRoomBtn = new javax.swing.JButton();
 
         addSubjectsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
         addSubjectsBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -54,17 +64,17 @@ public class Location extends javax.swing.JPanel {
             }
         });
 
-        addSubjectsBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
-        addSubjectsBtn1.addActionListener(new java.awt.event.ActionListener() {
+        addBulidingBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        addBulidingBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addSubjectsBtn1ActionPerformed(evt);
+                addBulidingBtnActionPerformed(evt);
             }
         });
 
-        viewSubjectsBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
-        viewSubjectsBtn1.addActionListener(new java.awt.event.ActionListener() {
+        addRoomBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        addRoomBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewSubjectsBtn1ActionPerformed(evt);
+                addRoomBtnActionPerformed(evt);
             }
         });
 
@@ -74,9 +84,9 @@ public class Location extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(85, Short.MAX_VALUE)
-                .addComponent(addSubjectsBtn1)
+                .addComponent(addBulidingBtn)
                 .addGap(18, 18, 18)
-                .addComponent(viewSubjectsBtn1)
+                .addComponent(addRoomBtn)
                 .addGap(18, 18, 18)
                 .addComponent(addSubjectsBtn)
                 .addGap(18, 18, 18)
@@ -90,37 +100,41 @@ public class Location extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(viewSubjectsBtn)
                     .addComponent(addSubjectsBtn)
-                    .addComponent(addSubjectsBtn1)
-                    .addComponent(viewSubjectsBtn1))
+                    .addComponent(addBulidingBtn)
+                    .addComponent(addRoomBtn))
                 .addContainerGap(168, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addSubjectsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSubjectsBtnActionPerformed
         // TODO add your handling code here:
-//        jTabbedPane.remove(0);
-//        jTabbedPane.add("Add Subjects", new AddEditSubjects(new Subject(), jTabbedPane));
+        jTabbedPane.remove(0);
+        jTabbedPane.add("View buildings", new ViewBuilding(jTabbedPane));
     }//GEN-LAST:event_addSubjectsBtnActionPerformed
 
     private void viewSubjectsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSubjectsBtnActionPerformed
         // TODO add your handling code here:
-//        jTabbedPane.remove(0);
-//        jTabbedPane.add("View Subjects", new ViewSubjects(jTabbedPane));
+        jTabbedPane.remove(0);
+        jTabbedPane.add("View Rooms", new ViewRoom(jTabbedPane));
     }//GEN-LAST:event_viewSubjectsBtnActionPerformed
 
-    private void addSubjectsBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSubjectsBtn1ActionPerformed
+    private void addBulidingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBulidingBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addSubjectsBtn1ActionPerformed
+        jTabbedPane.remove(0);
+        jTabbedPane.add("Add New Building", new AddEditBuilding(new Building(), jTabbedPane));
+    }//GEN-LAST:event_addBulidingBtnActionPerformed
 
-    private void viewSubjectsBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSubjectsBtn1ActionPerformed
+    private void addRoomBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRoomBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_viewSubjectsBtn1ActionPerformed
+        jTabbedPane.remove(0);
+        jTabbedPane.add("Add New Room", new AddEditRoom(new Room(), jTabbedPane));
+    }//GEN-LAST:event_addRoomBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBulidingBtn;
+    private javax.swing.JButton addRoomBtn;
     private javax.swing.JButton addSubjectsBtn;
-    private javax.swing.JButton addSubjectsBtn1;
     private javax.swing.JButton viewSubjectsBtn;
-    private javax.swing.JButton viewSubjectsBtn1;
     // End of variables declaration//GEN-END:variables
 }
