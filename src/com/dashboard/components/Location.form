@@ -18,9 +18,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace pref="85" max="32767" attributes="0"/>
-              <Component id="addSubjectsBtn1" min="-2" max="-2" attributes="0"/>
+              <Component id="addBulidingBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="viewSubjectsBtn1" min="-2" max="-2" attributes="0"/>
+              <Component id="addRoomBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="addSubjectsBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -36,8 +36,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="viewSubjectsBtn" min="-2" max="-2" attributes="0"/>
                   <Component id="addSubjectsBtn" min="-2" max="-2" attributes="0"/>
-                  <Component id="addSubjectsBtn1" min="-2" max="-2" attributes="0"/>
-                  <Component id="viewSubjectsBtn1" min="-2" max="-2" attributes="0"/>
+                  <Component id="addBulidingBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="addRoomBtn" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="168" max="32767" attributes="0"/>
           </Group>
@@ -65,24 +65,24 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewSubjectsBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="addSubjectsBtn1">
+    <Component class="javax.swing.JButton" name="addBulidingBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/icons/Add-Folder-icon_1.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addSubjectsBtn1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addBulidingBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="viewSubjectsBtn1">
+    <Component class="javax.swing.JButton" name="addRoomBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/icons/Actions-view-calendar-list-icon.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewSubjectsBtn1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addRoomBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

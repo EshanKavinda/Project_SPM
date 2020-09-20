@@ -7,7 +7,12 @@ package com.dashboard.subcomponents;
 
 import com.dashboard.components.*;
 import com.models.Lecturer;
+import com.services.BuildingService;
 import com.services.LecturerService;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
@@ -26,6 +31,18 @@ public class AddLectures extends javax.swing.JPanel {
     public AddLectures(Lecturer lecturer, JTabbedPane jTabbedPane) {
         initComponents();
         this.jTabbedPane = jTabbedPane;
+        
+        BuildingService bs = new BuildingService();
+        ResultSet resultSet = bs.getAllBuildings();
+        
+        try {
+            //building_jComboBox.addItem("-Select-");
+            while (resultSet.next()) {
+                building_jComboBox.addItem(resultSet.getString("building_name"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddEditRoom.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if(lecturer.getLecturername() != null){
             addLecturesBtn.setText("Edit Lecturers");
@@ -106,20 +123,18 @@ public class AddLectures extends javax.swing.JPanel {
             }
         });
 
-        level_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        level_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Professor 1", "Assistant Professor 2", "Senior LecturerHG 3", "Senior Lecturer 4", "Lecturer 5", "Assistant Lecturer 6", "Instructors 7" }));
 
-        center_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        center_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malabe", "Kandy", "Jaffna", "Colombo", "Mathara" }));
         center_jComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 center_jComboBoxActionPerformed(evt);
             }
         });
 
-        department_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        department_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SE", "DS", "CS", "IT" }));
 
-        faculty_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        building_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        faculty_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Computing", "Business", "Engineering", "Huminity Science", "Medicine" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
