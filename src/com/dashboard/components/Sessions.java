@@ -5,6 +5,11 @@
  */
 package com.dashboard.components;
 
+import com.dashboard.subcomponents.AddEditSessions;
+import com.dashboard.subcomponents.ViewSessions;
+import com.models.Session;
+import javax.swing.JTabbedPane;
+
 /**
  *
  * @author ESHAN
@@ -14,8 +19,11 @@ public class Sessions extends javax.swing.JPanel {
     /**
      * Creates new form Sessions
      */
-    public Sessions() {
+    private JTabbedPane jTabbedPane;
+    
+    public Sessions(JTabbedPane jTabbedPane) {
         initComponents();
+        this.jTabbedPane = jTabbedPane;
     }
 
     /**
@@ -27,30 +35,60 @@ public class Sessions extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        addSessionsBtn = new javax.swing.JButton();
+        viewSessionsBtn = new javax.swing.JButton();
 
-        jLabel1.setText("Sessions");
+        addSessionsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        addSessionsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSessionsBtnActionPerformed(evt);
+            }
+        });
+
+        viewSessionsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        viewSessionsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewSessionsBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(395, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(378, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(264, Short.MAX_VALUE)
+                .addComponent(addSessionsBtn)
+                .addGap(26, 26, 26)
+                .addComponent(viewSessionsBtn)
+                .addContainerGap(266, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(228, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(254, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(200, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewSessionsBtn)
+                    .addComponent(addSessionsBtn))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addSessionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSessionsBtnActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane.remove(0);
+        jTabbedPane.add("Add Sessions", new AddEditSessions(new Session(), jTabbedPane));
+    }//GEN-LAST:event_addSessionsBtnActionPerformed
+
+    private void viewSessionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSessionsBtnActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane.remove(0);
+        jTabbedPane.add("View Subjects", new ViewSessions(jTabbedPane));
+    }//GEN-LAST:event_viewSessionsBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton addSessionsBtn;
+    private javax.swing.JButton viewSessionsBtn;
     // End of variables declaration//GEN-END:variables
 }
