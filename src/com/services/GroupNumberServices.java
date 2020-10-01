@@ -125,7 +125,7 @@ public class GroupNumberServices {
      }
      
      public ResultSet tableLoadGN(){
-        String loadQueary = "SELECT * FROM groupn";
+        String loadQueary = "SELECT GN_Id AS 'ID',group_number AS 'Group Number' FROM groupn";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);
@@ -139,7 +139,7 @@ public class GroupNumberServices {
     }
      
      public ResultSet tableLoadSGN(){
-        String loadQueary = "SELECT * FROM sgroupn";
+        String loadQueary = "SELECT SGN_Id AS 'ID',sub_group_number AS 'Sub-Group Number' FROM sgroupn";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);

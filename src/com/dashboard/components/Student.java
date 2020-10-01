@@ -25,7 +25,7 @@ public class Student extends javax.swing.JPanel {
     public Student() {
         initComponents();
         jTabbedPane2.remove(0);
-        jTabbedPane2.add("Academic Year and Semester", new Academic());
+        jTabbedPane2.add("Academic Year and Semester", new Academic(jTabbedPane2));
        
     }
 
@@ -62,6 +62,7 @@ public class Student extends javax.swing.JPanel {
 
         jTabbedPane2.addTab("tab1", jPanel4);
 
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton8.setText("Academic Year and Semester");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +70,7 @@ public class Student extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Programme");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +78,7 @@ public class Student extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Group Number");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +86,7 @@ public class Student extends javax.swing.JPanel {
             }
         });
 
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setText("Sub-Group Number");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +94,7 @@ public class Student extends javax.swing.JPanel {
             }
         });
 
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setText("Group ID");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +102,7 @@ public class Student extends javax.swing.JPanel {
             }
         });
 
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton5.setText("Sub-Group ID");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +110,7 @@ public class Student extends javax.swing.JPanel {
             }
         });
 
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton6.setText("Student Details");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +179,7 @@ public class Student extends javax.swing.JPanel {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.remove(0);
-        jTabbedPane2.add("Academic Year and Semester", new Academic());
+        jTabbedPane2.add("Academic Year and Semester", new Academic(jTabbedPane2));
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -196,13 +203,13 @@ public class Student extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.remove(0);
-        jTabbedPane2.add("Group ID", new GroupID());
+        jTabbedPane2.add("Group ID", new GroupID(jTabbedPane2));
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.remove(0);
-        jTabbedPane2.add("Sub-Group ID", new SubGroupID());
+        jTabbedPane2.add("Sub-Group ID", new SubGroupID(jTabbedPane2));
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

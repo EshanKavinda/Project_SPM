@@ -52,11 +52,18 @@ public class GroupNumber extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("Group Number");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton1.setText("ADD");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,9 +91,13 @@ public class GroupNumber extends javax.swing.JPanel {
 
         jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton4.setText("Edit");
-
+        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton5.setText("Delete");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -96,7 +107,6 @@ public class GroupNumber extends javax.swing.JPanel {
                 .addGap(52, 52, 52)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(68, 68, 68))
         );
@@ -105,11 +115,9 @@ public class GroupNumber extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(jButton4)
-                .addGap(56, 56, 56)
+                .addGap(70, 70, 70)
                 .addComponent(jButton5)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -121,7 +129,7 @@ public class GroupNumber extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -180,10 +188,44 @@ public class GroupNumber extends javax.swing.JPanel {
         jLabel2.setText(programmeName);
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+         int row = jTable1.getSelectedRow();
+        
+        if(row >= 0) {
+           // int GN_id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            int tagType = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            
+            System.out.println(tagType);
+            
+            int i = JOptionPane.showConfirmDialog(this, "Delete "+tagType,"Confirm",JOptionPane.YES_NO_OPTION);
+            if(i==0){
+                GroupNumberServices tagService = new GroupNumberServices();
+                tagService.deleteGN(tagType);
+                JOptionPane.showMessageDialog(this, "Tag Sucessfully Deleted");
+            }
+           jTabbedPane.remove(0);
+           jTabbedPane.add("Tags",new GroupNumber(jTabbedPane));
+        }else{
+            JOptionPane.showMessageDialog(this,"Please Select the Row");
+        }
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+         try{
+            int x = Integer.parseInt(jTextField1.getText());  
+        }catch(NumberFormatException ne){
+            JOptionPane.showMessageDialog(null, "Only Numbers");
+            jTextField1.setText("");
+        }
+        
+    }//GEN-LAST:event_jTextField1KeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

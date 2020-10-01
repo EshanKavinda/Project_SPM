@@ -12,16 +12,18 @@ package com.models;
 public class CProgramme {
     
       private int programmeId;
-    private String programmeName;
+      private String programmeName;
+      private String sprogrammeName;
     
    
     public CProgramme(){
         
     }
     
-     public CProgramme(int programmeId,String programmeName){
+     public CProgramme(int programmeId,String programmeName,String sprogrammeName){
         this.programmeId = programmeId;
         this.programmeName = programmeName;
+        this.sprogrammeName = sprogrammeName;
     }
      
     public int getProgrammeId(){
@@ -38,5 +40,13 @@ public class CProgramme {
     
     public void setProgrammeName(String programmeName){
         this.programmeName = programmeName;
+    }
+    
+    public String getSProgrameName(){
+        return sprogrammeName;
+    }
+    
+    public void setSProgrammeName(String sprogrammeName){
+        this.sprogrammeName = sprogrammeName;
     }
 }

@@ -65,7 +65,7 @@ public class StudentDService {
     }
       
         public ResultSet tableLoadStudents(){
-        String loadQueary = "SELECT * FROM students";
+        String loadQueary = "SELECT itNumber AS 'IT Number',name AS 'Name',group_id AS 'Group ID',subgroup_id AS 'Sub-Group ID',center AS 'Center' FROM students";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);
