@@ -7,6 +7,10 @@ package com.dashboard.components;
 
 import com.models.Tag;
 import com.services.TagServices;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import net.proteanit.sql.DbUtils;
@@ -43,13 +47,12 @@ public class Tags extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        AddB = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        DeleteB = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -57,11 +60,11 @@ public class Tags extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Tag Name");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jButton1.setText("ADD");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        AddB.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        AddB.setText("ADD");
+        AddB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AddBActionPerformed(evt);
             }
         });
 
@@ -75,7 +78,7 @@ public class Tags extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1)
                 .addGap(36, 36, 36)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AddB, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -84,11 +87,14 @@ public class Tags extends javax.swing.JPanel {
                 .addContainerGap(45, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AddB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36))
         );
 
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+
+        jTable1.setFont(jTable1.getFont().deriveFont(jTable1.getFont().getStyle() | java.awt.Font.BOLD));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -99,7 +105,15 @@ public class Tags extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -107,17 +121,11 @@ public class Tags extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setText("Edit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        DeleteB.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        DeleteB.setText("Delete");
+        DeleteB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Delete");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                DeleteBActionPerformed(evt);
             }
         });
 
@@ -127,22 +135,21 @@ public class Tags extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DeleteB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(28, 28, 28)
-                .addComponent(jButton3)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(DeleteB)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -194,29 +201,55 @@ public class Tags extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     //Add Tags
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void AddBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBActionPerformed
+            
+            boolean tagAvailbility = false;
             Tag tag = new Tag();
             tag.setTagId(tag_Id);
             tag.setTagName(jTextField1.getText().toString());
             
-            TagServices tagService = new TagServices();
             
-            if(jButton1.getText().toLowerCase().contains("add")){
-                tagService.addTag(tag);
-                 i = JOptionPane.showConfirmDialog(this, "SucessFully Added.","SucessFull",JOptionPane.DEFAULT_OPTION);
-                
+            TagServices tagService = new TagServices();
+            ResultSet resultSet = tagService.tableLoadTags();
+            
+            try {
+                while(resultSet.next()){
+                    if (resultSet.getString(2).toLowerCase().equals(jTextField1.getText().toLowerCase().toString())) {
+                        //JOptionPane.showMessageDialog(null, "All ready");
+                        tagAvailbility = true;
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Tags.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if(jTextField1.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Empty");
+            }else if(tagAvailbility){
+                JOptionPane.showMessageDialog(null, "All ready");
             }else{
-                tagService.updateTag(tag);
+                if(AddB.getText().toLowerCase().contains("add")){
+                    tagService.addTag(tag);
+                    i = JOptionPane.showConfirmDialog(this, "SucessFully Added.","SucessFull",JOptionPane.DEFAULT_OPTION);
+                }else if(AddB.getText().toLowerCase().contains("edit")){
+                    tagService.updateTag(tag);
+                    i = JOptionPane.showConfirmDialog(this, "Sucessfully Edited.","SucessFull",JOptionPane.DEFAULT_OPTION);
+                }
+
+                if(i==0){
+                    jTabbedPane.remove(0);
+                    jTabbedPane.add("Tags",new Tags(jTabbedPane));
+                }
             }
-           
-            if(i==0){
-                System.out.println("Sucess Sent");
-                jTabbedPane.remove(0);
-           jTabbedPane.add("Tags",new Tags(jTabbedPane));
-            }
-    }//GEN-LAST:event_jButton1ActionPerformed
-    //Delete Tags
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+            
+
+            
+
+        
+    }//GEN-LAST:event_AddBActionPerformed
+
+//Delete Tags
+    private void DeleteBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBActionPerformed
         
         int row = jTable1.getSelectedRow();
         
@@ -224,7 +257,7 @@ public class Tags extends javax.swing.JPanel {
             int tagId = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
             String tagType = jTable1.getValueAt(row, 1).toString().toUpperCase();
             
-            System.out.println(tagId);
+            
             
             int i = JOptionPane.showConfirmDialog(this, "Delete "+tagType,"Confirm",JOptionPane.YES_NO_OPTION);
             if(i==0){
@@ -237,28 +270,20 @@ public class Tags extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(this,"Please Select the Row");
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_DeleteBActionPerformed
     //Select Tags
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int row = jTable1.getSelectedRow();
-        String tagId = jTable1.getValueAt(row, 0).toString();
+        tag_Id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
         String tagType = jTable1.getValueAt(row, 1).toString();
         jLabel2.setText(tagType);
         jTextField1.setText(tagType);
-        jButton1.setText("Edit");
+        AddB.setText("Edit");
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        
-        int row = jTable1.getSelectedRow();
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton AddB;
+    private javax.swing.JButton DeleteB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

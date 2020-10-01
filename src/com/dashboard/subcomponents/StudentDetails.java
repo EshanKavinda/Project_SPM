@@ -5,8 +5,6 @@
  */
 package com.dashboard.subcomponents;
 
-import com.dashboard.components.*;
-import com.models.studentsDetails;
 import com.services.StudentDService;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -59,7 +57,7 @@ public class StudentDetails extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton1.setText("Remove");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +96,7 @@ public class StudentDetails extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -142,11 +140,7 @@ public class StudentDetails extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = jTable2.getSelectedRow();
         String itNumber = jTable2.getValueAt(row, 0).toString();
-        String name = jTable2.getValueAt(row, 1).toString();
-        String groupId = jTable2.getValueAt(row, 3).toString();
-        String subgroupId = jTable2.getValueAt(row, 4).toString();
-        String center = jTable2.getValueAt(row, 5).toString();
-        jLabel1.setText(name);
+        jLabel1.setText(itNumber);
     }//GEN-LAST:event_jTable2MouseClicked
 
 

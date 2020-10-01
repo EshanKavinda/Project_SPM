@@ -25,8 +25,9 @@ public class programmeServices {
      public void addProgramme(CProgramme p){
         
         String programmeName = p.getProgrameName();
+        String sprogrammeName = p.getSProgrameName();
         
-        String insertQuearyProgramme = "INSERT INTO programmes(`programme_name`) VALUES ('"+programmeName+"')";
+        String insertQuearyProgramme = "INSERT INTO programmes(`programme_name`,`sprogramme_name`) VALUES ('"+programmeName+"','"+sprogrammeName+"')";
         
         try{
             connection = SQLite_Connection.connect();
@@ -43,8 +44,9 @@ public class programmeServices {
       public void updateProgramme(CProgramme p){
         int Pid = p.getProgrammeId();
         String PName = p.getProgrameName();
+        String SPName = p.getSProgrameName();
         
-        String updateQuearyProgramme = "UPDATE programmes SET `programme_name`='"+PName+"' where `programme_id`='"+Pid+"' ";
+        String updateQuearyProgramme = "UPDATE programmes SET `programme_name`='"+PName+"',`sprogramme_name`='"+SPName+"' where `programme_id`='"+Pid+"' ";
         
         try{
             connection = SQLite_Connection.connect();
@@ -77,7 +79,7 @@ public class programmeServices {
        
        
        public ResultSet tableLoadProgrammes(){
-        String loadQueary = "SELECT * FROM programmes";
+        String loadQueary = "SELECT programme_id AS 'ID',programme_name AS 'Programme Name', sprogramme_name AS 'Short Name' FROM programmes";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);

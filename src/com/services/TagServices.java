@@ -43,7 +43,7 @@ public class TagServices {
         int Tid = tag.getTagId();
         String tagName = tag.getTagName();
         
-        String updateQuearyTag = "UPDATE tags SET `tag_type`='"+tagName+"' where `tag_id`='"+Tid+"' ";
+        String updateQuearyTag = "UPDATE tags SET `tag_type`='"+tagName+"' WHERE `tag_id`='"+Tid+"'";
         
         try{
             connection = SQLite_Connection.connect();
@@ -72,8 +72,9 @@ public class TagServices {
         }  
     
      }
+     
       public ResultSet tableLoadTags(){
-        String loadQueary = "SELECT * FROM tags";
+        String loadQueary = "SELECT tag_id AS 'Tag ID',tag_type AS 'Tag Name' FROM tags";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);

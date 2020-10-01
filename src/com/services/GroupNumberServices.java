@@ -124,32 +124,32 @@ public class GroupNumberServices {
        } 
     }
      
-    public ResultSet tableLoadGN(){
-       String loadQueary = "SELECT * FROM groupn";
-       try {
-               connection = SQLite_Connection.connect();
-               preparedStatement = connection.prepareStatement(loadQueary);
-               resultset= preparedStatement.executeQuery();
-           } catch (Exception e) {
-               System.out.println(e.toString());
-           }finally {		
-                     //Services.colsedConnections();
-       }
-       return resultset;
+     public ResultSet tableLoadGN(){
+        String loadQueary = "SELECT GN_Id AS 'ID',group_number AS 'Group Number' FROM groupn";
+        try {
+                connection = SQLite_Connection.connect();
+                preparedStatement = connection.prepareStatement(loadQueary);
+                resultset= preparedStatement.executeQuery();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }finally {		
+                      //Services.colsedConnections();
+        }
+        return resultset;
     }
      
-    public ResultSet tableLoadSGN(){
-       String loadQueary = "SELECT * FROM sgroupn";
-       try {
-               connection = SQLite_Connection.connect();
-               preparedStatement = connection.prepareStatement(loadQueary);
-               resultset= preparedStatement.executeQuery();
-           } catch (Exception e) {
-               System.out.println(e.toString());
-           }finally {		
-                     //Services.colsedConnections();
-       }
-       return resultset;
+     public ResultSet tableLoadSGN(){
+        String loadQueary = "SELECT SGN_Id AS 'ID',sub_group_number AS 'Sub-Group Number' FROM sgroupn";
+        try {
+                connection = SQLite_Connection.connect();
+                preparedStatement = connection.prepareStatement(loadQueary);
+                resultset= preparedStatement.executeQuery();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }finally {		
+                      //Services.colsedConnections();
+        }
+        return resultset;
     }
      
     public ResultSet tableLoadGN_Generated(){
