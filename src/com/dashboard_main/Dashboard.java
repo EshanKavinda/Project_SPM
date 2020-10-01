@@ -313,7 +313,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         jTabbedPane2.remove(0);
-        jTabbedPane2.add("Sessions", new Sessions());
+        jTabbedPane2.add("Sessions", new Sessions(jTabbedPane2));
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed

@@ -109,20 +109,20 @@ public class GroupNumberServices {
         } 
      }
     
-     public void deleteSGN(int sgnId){
-         String deleteQuearySGN = "DELETE FROM Sgroupn where `SGN_id` = '"+sgnId+"'";
-         
-          try {
-            connection = SQLite_Connection.connect();
-            preparedStatement = connection.prepareStatement(deleteQuearySGN);
-            boolean result = preparedStatement.execute();
-            System.out.println("DB status: "+result);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }finally {		
-                 // Services.colsedConnections();
-        } 
-     }
+    public void deleteSGN(int sgnId){
+        String deleteQuearySGN = "DELETE FROM Sgroupn where `SGN_id` = '"+sgnId+"'";
+
+         try {
+           connection = SQLite_Connection.connect();
+           preparedStatement = connection.prepareStatement(deleteQuearySGN);
+           boolean result = preparedStatement.execute();
+           System.out.println("DB status: "+result);
+       } catch (Exception e) {
+           System.out.println(e.toString());
+       }finally {		
+                // Services.colsedConnections();
+       } 
+    }
      
      public ResultSet tableLoadGN(){
         String loadQueary = "SELECT GN_Id AS 'ID',group_number AS 'Group Number' FROM groupn";
@@ -151,4 +151,33 @@ public class GroupNumberServices {
         }
         return resultset;
     }
+     
+    public ResultSet tableLoadGN_Generated(){
+       String loadQueary = "SELECT * FROM groupid_generated";
+       try {
+               connection = SQLite_Connection.connect();
+               preparedStatement = connection.prepareStatement(loadQueary);
+               resultset= preparedStatement.executeQuery();
+           } catch (Exception e) {
+               System.out.println(e.toString());
+           }finally {		
+                     //Services.colsedConnections();
+       }
+       return resultset;
+    }
+     
+    public ResultSet tableLoadSGN_Generated(){
+       String loadQueary = "SELECT * FROM subgroupid_generated";
+       try {
+               connection = SQLite_Connection.connect();
+               preparedStatement = connection.prepareStatement(loadQueary);
+               resultset= preparedStatement.executeQuery();
+           } catch (Exception e) {
+               System.out.println(e.toString());
+           }finally {		
+                     //Services.colsedConnections();
+       }
+       return resultset;
+    }
+     
 }
