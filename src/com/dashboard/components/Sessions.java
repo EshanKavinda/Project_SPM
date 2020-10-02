@@ -39,6 +39,7 @@ public class Sessions extends javax.swing.JPanel {
         viewSessionsBtn = new javax.swing.JButton();
 
         addSessionsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        addSessionsBtn.setText("ADD SESSIONS");
         addSessionsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addSessionsBtnActionPerformed(evt);
@@ -46,6 +47,7 @@ public class Sessions extends javax.swing.JPanel {
         });
 
         viewSessionsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        viewSessionsBtn.setText("VIEW SESSIONS");
         viewSessionsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewSessionsBtnActionPerformed(evt);
@@ -57,11 +59,11 @@ public class Sessions extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(264, Short.MAX_VALUE)
+                .addContainerGap(185, Short.MAX_VALUE)
                 .addComponent(addSessionsBtn)
                 .addGap(26, 26, 26)
                 .addComponent(viewSessionsBtn)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

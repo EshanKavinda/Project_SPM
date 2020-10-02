@@ -7,6 +7,7 @@ package com.dashboard.components;
 
 import com.dashboard.subcomponents.AddEditBuilding;
 import com.dashboard.subcomponents.AddEditRoom;
+import com.dashboard.subcomponents.RoomManagement;
 import com.dashboard.subcomponents.ViewBuilding;
 import com.dashboard.subcomponents.ViewRoom;
 import com.models.Building;
@@ -49,8 +50,10 @@ public class Location extends javax.swing.JPanel {
         viewSubjectsBtn = new javax.swing.JButton();
         addBulidingBtn = new javax.swing.JButton();
         addRoomBtn = new javax.swing.JButton();
+        roomManagementBtn = new javax.swing.JButton();
 
-        addSubjectsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        addSubjectsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        addSubjectsBtn.setText("VIEW BUILDINGS");
         addSubjectsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addSubjectsBtnActionPerformed(evt);
@@ -58,6 +61,7 @@ public class Location extends javax.swing.JPanel {
         });
 
         viewSubjectsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        viewSubjectsBtn.setText("VIEW ROOMS");
         viewSubjectsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewSubjectsBtnActionPerformed(evt);
@@ -65,16 +69,26 @@ public class Location extends javax.swing.JPanel {
         });
 
         addBulidingBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        addBulidingBtn.setText("ADD BUILDING");
         addBulidingBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBulidingBtnActionPerformed(evt);
             }
         });
 
-        addRoomBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        addRoomBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        addRoomBtn.setText("ADD ROOM");
         addRoomBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addRoomBtnActionPerformed(evt);
+            }
+        });
+
+        roomManagementBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        roomManagementBtn.setText("ROOM MANAGEMENT");
+        roomManagementBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomManagementBtnActionPerformed(evt);
             }
         });
 
@@ -83,7 +97,7 @@ public class Location extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(addBulidingBtn)
                 .addGap(18, 18, 18)
                 .addComponent(addRoomBtn)
@@ -91,18 +105,24 @@ public class Location extends javax.swing.JPanel {
                 .addComponent(addSubjectsBtn)
                 .addGap(18, 18, 18)
                 .addComponent(viewSubjectsBtn)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(roomManagementBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(177, Short.MAX_VALUE)
+                .addContainerGap(214, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(viewSubjectsBtn)
                     .addComponent(addSubjectsBtn)
                     .addComponent(addBulidingBtn)
                     .addComponent(addRoomBtn))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(roomManagementBtn)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -130,11 +150,18 @@ public class Location extends javax.swing.JPanel {
         jTabbedPane.add("Add New Room", new AddEditRoom(new Room(), jTabbedPane));
     }//GEN-LAST:event_addRoomBtnActionPerformed
 
+    private void roomManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomManagementBtnActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane.remove(0);
+        jTabbedPane.add("Room Management", new RoomManagement());
+    }//GEN-LAST:event_roomManagementBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBulidingBtn;
     private javax.swing.JButton addRoomBtn;
     private javax.swing.JButton addSubjectsBtn;
+    private javax.swing.JButton roomManagementBtn;
     private javax.swing.JButton viewSubjectsBtn;
     // End of variables declaration//GEN-END:variables
 }

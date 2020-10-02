@@ -39,6 +39,7 @@ public class Subjects extends javax.swing.JPanel {
         viewSubjectsBtn = new javax.swing.JButton();
 
         addSubjectsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        addSubjectsBtn.setText("ADD SUBJECTS");
         addSubjectsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addSubjectsBtnActionPerformed(evt);
@@ -46,6 +47,7 @@ public class Subjects extends javax.swing.JPanel {
         });
 
         viewSubjectsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        viewSubjectsBtn.setText("VIEW SUBJECTS");
         viewSubjectsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewSubjectsBtnActionPerformed(evt);
@@ -57,11 +59,11 @@ public class Subjects extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(280, Short.MAX_VALUE)
+                .addContainerGap(201, Short.MAX_VALUE)
                 .addComponent(addSubjectsBtn)
                 .addGap(26, 26, 26)
                 .addComponent(viewSubjectsBtn)
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

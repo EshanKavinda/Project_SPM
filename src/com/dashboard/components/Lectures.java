@@ -39,6 +39,7 @@ public class Lectures extends javax.swing.JPanel {
         viewLecturersBtn = new javax.swing.JButton();
 
         addLecturersBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        addLecturersBtn.setText("ADD LECTURERS");
         addLecturersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addLecturersBtnActionPerformed(evt);
@@ -46,6 +47,7 @@ public class Lectures extends javax.swing.JPanel {
         });
 
         viewLecturersBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        viewLecturersBtn.setText("VIEW LECTURERS");
         viewLecturersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewLecturersBtnActionPerformed(evt);
@@ -57,11 +59,11 @@ public class Lectures extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(173, Short.MAX_VALUE)
+                .addContainerGap(86, Short.MAX_VALUE)
                 .addComponent(addLecturersBtn)
                 .addGap(26, 26, 26)
                 .addComponent(viewLecturersBtn)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

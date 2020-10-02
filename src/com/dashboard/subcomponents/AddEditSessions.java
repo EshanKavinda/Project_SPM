@@ -52,7 +52,7 @@ public class AddEditSessions extends javax.swing.JPanel {
                 lecturer_jCombobox.addItem(resultSetlecturer.getString("name"));
             }
             while (resultSetsubject.next()) {
-                subject_jCombobox.addItem(resultSetsubject.getString("subject_name")+" - "+resultSetsubject.getString("subject_code"));
+                subject_jCombobox.addItem(resultSetsubject.getString("subject_name")+" ("+resultSetsubject.getString("subject_code")+")");
             }
             while (resultSettags.next()) {
                 tag_jCombobox.addItem(resultSettags.getString("tag_type"));
@@ -166,6 +166,11 @@ public class AddEditSessions extends javax.swing.JPanel {
         });
 
         lecturers_jTextFeild.setEditable(false);
+        lecturers_jTextFeild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lecturers_jTextFeildActionPerformed(evt);
+            }
+        });
 
         clear_lecturer_text_btn.setText("X");
         clear_lecturer_text_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -418,9 +423,7 @@ public class AddEditSessions extends javax.swing.JPanel {
                     lecturers_jTextFeild.setText(lecturers_jTextFeild.getText()+", "+lecName);
                 }
             }
-            lecturer_jCombobox.setSelectedIndex(0);
-            
-            
+            lecturer_jCombobox.setSelectedIndex(0);    
         }
     }//GEN-LAST:event_lecturer_jComboboxActionPerformed
 
@@ -452,6 +455,10 @@ public class AddEditSessions extends javax.swing.JPanel {
             duration_jTextfeild.setText("");
         }
     }//GEN-LAST:event_duration_jTextfeildKeyReleased
+
+    private void lecturers_jTextFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecturers_jTextFeildActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lecturers_jTextFeildActionPerformed
 
     public void showAlertDialog(String type, String msg){
         if (type.equals("success")) {

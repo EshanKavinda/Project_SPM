@@ -7,8 +7,10 @@ package com.dashboard.subcomponents;
 
 import com.models.Session;
 import com.services.SessionService;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -21,12 +23,14 @@ public class ViewSessions extends javax.swing.JPanel {
      * Creates new form ViewSessions
      */
     private JTabbedPane jTabbedPane;
+    private Vector originalTableModel;
     
     public ViewSessions(JTabbedPane jTabbedPane) {
         initComponents();
         this.jTabbedPane = jTabbedPane;
         SessionService service = new SessionService();
         sessions_jTable.setModel(DbUtils.resultSetToTableModel(service.tableLoadSessions()));
+        originalTableModel = (Vector) ((DefaultTableModel) sessions_jTable.getModel()).getDataVector().clone();
 //        sessions_jTable.getColumnModel().getColumn(0).setHeaderValue("ID");
         
     }
@@ -45,6 +49,7 @@ public class ViewSessions extends javax.swing.JPanel {
         sessions_jTable = new javax.swing.JTable();
         deleteSessionsBtn = new javax.swing.JButton();
         editSessionsBtn = new javax.swing.JButton();
+        search_jTextField = new javax.swing.JTextField();
 
         sessions_jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -73,13 +78,22 @@ public class ViewSessions extends javax.swing.JPanel {
             }
         });
 
+        search_jTextField.setToolTipText("Search All");
+        search_jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                search_jTextFieldKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(search_jTextField)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(deleteSessionsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -89,15 +103,16 @@ public class ViewSessions extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(editSessionsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteSessionsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE)
+                .addComponent(editSessionsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(deleteSessionsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(172, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(search_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -167,12 +182,32 @@ public class ViewSessions extends javax.swing.JPanel {
 
     }//GEN-LAST:event_editSessionsBtnActionPerformed
 
+    private void search_jTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_jTextFieldKeyReleased
+        // TODO add your handling code here:
+        searchTableContents(search_jTextField.getText().toString());
+    }//GEN-LAST:event_search_jTextFieldKeyReleased
+
+    public void searchTableContents(String searchString) {    
+    DefaultTableModel currtableModel = (DefaultTableModel) sessions_jTable.getModel();
+      currtableModel.setRowCount(0);
+      for (Object rows : originalTableModel) {
+          Vector rowVector = (Vector) rows;
+          for (Object column : rowVector) {
+              if (column.toString().toLowerCase().contains(searchString.toLowerCase())) {
+                  currtableModel.addRow(rowVector);
+                  break;
+              }
+          }
+
+      }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteSessionsBtn;
     private javax.swing.JButton editSessionsBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField search_jTextField;
     private javax.swing.JTable sessions_jTable;
     // End of variables declaration//GEN-END:variables
 }

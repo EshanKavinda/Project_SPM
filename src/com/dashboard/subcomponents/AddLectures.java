@@ -311,21 +311,32 @@ public class AddLectures extends javax.swing.JPanel {
         
         LecturerService lecturerService = new LecturerService();
         
-        if (addLecturesBtn.getText().toLowerCase().contains("add")) {
-            lecturerService.addLecture(lecturer);
+        if (lname.getText().equals("") || eid.getText().equals("") || rank.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "All feilds are required");
         }else{
-            if (lecturer_id == 0) {
-                System.out.println("Update error");
+            if (eid.getText().length() != 6) {
+                JOptionPane.showMessageDialog(null, "Employee number should be a 6 digit number");
             }else{
-                lecturerService.updateLecturer(lecturer);   
+                if (addLecturesBtn.getText().toLowerCase().contains("add")) {
+                    lecturerService.addLecture(lecturer);
+                }else{
+                    if (lecturer_id == 0) {
+                        System.out.println("Update error");
+                    }else{
+                        lecturerService.updateLecturer(lecturer);   
+                    }
+                }
+        
+                int i = JOptionPane.showConfirmDialog(this, "Do you want to view all lecturer details" ,"Success", JOptionPane.YES_NO_OPTION);
+                    if(i==0){
+                        jTabbedPane.remove(0);
+                        jTabbedPane.add("View Lecturers", new ViewLectures(jTabbedPane));
+                    }
+                
             }
         }
         
-        int i = JOptionPane.showConfirmDialog(this, "Do you want to view all lecturer details" ,"Success", JOptionPane.YES_NO_OPTION);
-            if(i==0){
-                jTabbedPane.remove(0);
-                jTabbedPane.add("View Lecturers", new ViewLectures(jTabbedPane));
-            }
+        
         
         
     }//GEN-LAST:event_addLecturesBtnActionPerformed

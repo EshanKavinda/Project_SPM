@@ -29,7 +29,7 @@ public class RoomService {
         String capacity = room.getCapacity();
         String type = room.getType();
         
-        String insertQuearyRoom = "INSERT INTO room(`building_name`,`room_name`,`capacity`,`type`) VALUES ('"+roomName+"','"+buildingName+"','"+capacity+"','"+type+"')";
+        String insertQuearyRoom = "INSERT INTO room(`building_name`,`room_name`,`capacity`,`type`) VALUES ('"+buildingName+"','"+roomName+"','"+capacity+"','"+type+"')";
         try {
             connection = SQLite_Connection.connect();
             preparedStatement = connection.prepareStatement(insertQuearyRoom);
