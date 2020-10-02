@@ -7,6 +7,7 @@ package com.dashboard.components;
 
 import com.dashboard.subcomponents.AddEditBuilding;
 import com.dashboard.subcomponents.AddEditRoom;
+import com.dashboard.subcomponents.AddNotAvailableTimesforRoom;
 import com.dashboard.subcomponents.RoomManagement;
 import com.dashboard.subcomponents.ViewBuilding;
 import com.dashboard.subcomponents.ViewRoom;
@@ -51,6 +52,8 @@ public class Location extends javax.swing.JPanel {
         addBulidingBtn = new javax.swing.JButton();
         addRoomBtn = new javax.swing.JButton();
         roomManagementBtn = new javax.swing.JButton();
+        roomManagementBtn1 = new javax.swing.JButton();
+        roomManagementBtn2 = new javax.swing.JButton();
 
         addSubjectsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
         addSubjectsBtn.setText("VIEW BUILDINGS");
@@ -84,11 +87,27 @@ public class Location extends javax.swing.JPanel {
             }
         });
 
-        roomManagementBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
-        roomManagementBtn.setText("ROOM MANAGEMENT");
+        roomManagementBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        roomManagementBtn.setText("ADD CONSESTIVE SESSIONS ROOMS");
         roomManagementBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 roomManagementBtnActionPerformed(evt);
+            }
+        });
+
+        roomManagementBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Actions-view-calendar-list-icon.png"))); // NOI18N
+        roomManagementBtn1.setText("ROOM MANAGEMENT");
+        roomManagementBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomManagementBtn1ActionPerformed(evt);
+            }
+        });
+
+        roomManagementBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icons/Add-Folder-icon_1.png"))); // NOI18N
+        roomManagementBtn2.setText("ADD TIME NOT RESERVED");
+        roomManagementBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomManagementBtn2ActionPerformed(evt);
             }
         });
 
@@ -97,7 +116,7 @@ public class Location extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(addBulidingBtn)
                 .addGap(18, 18, 18)
                 .addComponent(addRoomBtn)
@@ -105,23 +124,30 @@ public class Location extends javax.swing.JPanel {
                 .addComponent(addSubjectsBtn)
                 .addGap(18, 18, 18)
                 .addComponent(viewSubjectsBtn)
-                .addContainerGap(15, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(roomManagementBtn1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(roomManagementBtn2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(roomManagementBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(214, Short.MAX_VALUE)
+                .addContainerGap(150, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(viewSubjectsBtn)
                     .addComponent(addSubjectsBtn)
                     .addComponent(addBulidingBtn)
                     .addComponent(addRoomBtn))
                 .addGap(18, 18, 18)
-                .addComponent(roomManagementBtn)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(roomManagementBtn)
+                    .addComponent(roomManagementBtn2)
+                    .addComponent(roomManagementBtn1))
                 .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -152,9 +178,20 @@ public class Location extends javax.swing.JPanel {
 
     private void roomManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomManagementBtnActionPerformed
         // TODO add your handling code here:
+        
+    }//GEN-LAST:event_roomManagementBtnActionPerformed
+
+    private void roomManagementBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomManagementBtn1ActionPerformed
+        // TODO add your handling code here:
         jTabbedPane.remove(0);
         jTabbedPane.add("Room Management", new RoomManagement());
-    }//GEN-LAST:event_roomManagementBtnActionPerformed
+    }//GEN-LAST:event_roomManagementBtn1ActionPerformed
+
+    private void roomManagementBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomManagementBtn2ActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane.remove(0);
+        jTabbedPane.add("Add time room not reserved", new AddNotAvailableTimesforRoom());
+    }//GEN-LAST:event_roomManagementBtn2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -162,6 +199,8 @@ public class Location extends javax.swing.JPanel {
     private javax.swing.JButton addRoomBtn;
     private javax.swing.JButton addSubjectsBtn;
     private javax.swing.JButton roomManagementBtn;
+    private javax.swing.JButton roomManagementBtn1;
+    private javax.swing.JButton roomManagementBtn2;
     private javax.swing.JButton viewSubjectsBtn;
     // End of variables declaration//GEN-END:variables
 }

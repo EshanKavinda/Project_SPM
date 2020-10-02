@@ -5,11 +5,13 @@
  */
 package com.dashboard.subcomponents;
 
+import com.services.AllocateRoomService;
 import com.services.RoomService;
 import com.services.SessionService;
 import com.services.TagServices;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -64,9 +66,7 @@ public class RoomManagement extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        duration_jTextfeild = new javax.swing.JTextField();
         tag_jCombobox = new javax.swing.JComboBox<>();
         session_jCombobox = new javax.swing.JComboBox<>();
         tag_jTextFeild = new javax.swing.JTextField();
@@ -81,7 +81,7 @@ public class RoomManagement extends javax.swing.JPanel {
         student_jTextFeild = new javax.swing.JTextField();
         clear_student_text_btn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        addSessionsBtn = new javax.swing.JButton();
+        allocateRoomsBtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -96,23 +96,10 @@ public class RoomManagement extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Session");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText("D");
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Student Preffered");
 
-        duration_jTextfeild.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                duration_jTextfeildActionPerformed(evt);
-            }
-        });
-        duration_jTextfeild.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                duration_jTextfeildKeyReleased(evt);
-            }
-        });
-
+        tag_jCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-select-" }));
         tag_jCombobox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 tag_jComboboxItemStateChanged(evt);
@@ -139,6 +126,7 @@ public class RoomManagement extends javax.swing.JPanel {
             }
         });
 
+        subject_jCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-select-" }));
         subject_jCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subject_jComboboxActionPerformed(evt);
@@ -154,6 +142,7 @@ public class RoomManagement extends javax.swing.JPanel {
             }
         });
 
+        lecturer_jCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-select-" }));
         lecturer_jCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lecturer_jComboboxActionPerformed(evt);
@@ -169,6 +158,7 @@ public class RoomManagement extends javax.swing.JPanel {
             }
         });
 
+        student_jCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-select-" }));
         student_jCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 student_jComboboxActionPerformed(evt);
@@ -195,48 +185,41 @@ public class RoomManagement extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
-                        .addGap(133, 133, 133)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(tag_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tag_jTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(clear_tag_text_btn))
-                            .addComponent(session_jCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(session_jCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(100, 100, 100)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(duration_jTextfeild)
-                                .addGap(42, 42, 42))
+                                .addComponent(subject_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(subject_jTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clear_subject_text_btn))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(subject_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(subject_jTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(clear_subject_text_btn))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(student_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(student_jTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(clear_student_text_btn))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(lecturer_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lecturer_jTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(clear_lecturer_text_btn)))
-                                .addContainerGap())))))
+                                .addComponent(student_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(student_jTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clear_student_text_btn))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lecturer_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lecturer_jTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clear_lecturer_text_btn)))))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +228,7 @@ public class RoomManagement extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(session_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tag_jTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,17 +252,13 @@ public class RoomManagement extends javax.swing.JPanel {
                     .addComponent(clear_student_text_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(student_jCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(duration_jTextfeild, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                    .addComponent(jLabel7))
-                .addGap(111, 111, 111))
+                .addGap(157, 157, 157))
         );
 
-        addSessionsBtn.setText("Add Sessions");
-        addSessionsBtn.addActionListener(new java.awt.event.ActionListener() {
+        allocateRoomsBtn.setText("Allocate Rooms");
+        allocateRoomsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addSessionsBtnActionPerformed(evt);
+                allocateRoomsBtnActionPerformed(evt);
             }
         });
 
@@ -296,7 +275,7 @@ public class RoomManagement extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addSessionsBtn)
+                .addComponent(allocateRoomsBtn)
                 .addGap(49, 49, 49)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -307,7 +286,7 @@ public class RoomManagement extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(addSessionsBtn))
+                    .addComponent(allocateRoomsBtn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -326,10 +305,10 @@ public class RoomManagement extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -371,7 +350,7 @@ public class RoomManagement extends javax.swing.JPanel {
             } catch (Exception e) {
             }
             
-            //lecturer_jCombobox.setSelectedIndex(0);
+            //tag_jCombobox.setSelectedIndex(1);
 
         }
     }//GEN-LAST:event_tag_jComboboxActionPerformed
@@ -381,50 +360,38 @@ public class RoomManagement extends javax.swing.JPanel {
         tag_jTextFeild.setText("");
     }//GEN-LAST:event_clear_tag_text_btnActionPerformed
 
-    private void addSessionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSessionsBtnActionPerformed
+    private void allocateRoomsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allocateRoomsBtnActionPerformed
         // TODO add your handling code here:
 
-//        if (lecturers_jTextFeild.getText().toString().equals("") || subject_jCombobox.getSelectedIndex() == 0
-//            || tag_jCombobox.getSelectedIndex() == 0 || groupId_jCombobox.getSelectedIndex() == 0
-//            || studentCount_textfeild.getText().toString().equals("")
-//            || duration_jTextfeild.getText().toString().equals("")) {
-//
-//            showAlertDialog("error", "Please fill all feilds");
-//        }else{
-//            Session session = new Session();
-//            session.setSessionId(sessionid);
-//            session.setLecturers(lecturers_jTextFeild.getText().toString());
-//            session.setSubject(subject_jCombobox.getSelectedItem().toString());
-//            session.setTag(tag_jCombobox.getSelectedItem().toString());
-//            session.setGroup(groupId_jCombobox.getSelectedItem().toString());
-//            session.setNumberOfStudents(Integer.parseInt(studentCount_textfeild.getText()));
-//            session.setDuration(Integer.parseInt(duration_jTextfeild.getText()));
-//
-//            SessionService service = new SessionService();
-//
-//            if (addSessionsBtn.getText().toLowerCase().contains("add")) {
-//                if (service.addSession(session)) {
-//                    showAlertDialog("success", "Session successfully added! Do you want to view all sessions");
-//                    clearfeilds();
-//                }else{
-//                    showAlertDialog("error", "Session added failed! please try again");
-//                }
-//            }else{
-//                if (sessionid == 0) {
-//                    showAlertDialog("error", "Session update error! please try again");
-//                }else{
-//                    if (service.updateSession(session)) {
-//                        showAlertDialog("success", "Session successfully updated! Do you want to view all sessions");
-//                        clearfeilds();
-//                    }else{
-//                        showAlertDialog("error", "Session update failed! please try again");
-//                    }
-//
-//                }
-//            }
-//        }
+        if (tag_jTextFeild.getText().toString().equals("") || subject_jTextFeild.getText().toString().equals("")
+                || lecturer_jTextFeild.getText().toString().equals("") || student_jTextFeild.getText().toString().equals("")) {
+                
+            JOptionPane.showMessageDialog(null, "Some feilds are empty");
+            
+        }else{
+            
+            ArrayList al = new ArrayList();
+            AllocateRoomService roomService = new AllocateRoomService();
 
-    }//GEN-LAST:event_addSessionsBtnActionPerformed
+            if (allocateRoomsBtn.getText().toLowerCase().contains("allo")) {
+                al.clear();
+                al.add(session_jCombobox.getSelectedItem().toString());
+                al.add(subject_jTextFeild.getText());
+                al.add(lecturer_jTextFeild.getText());
+                al.add(student_jTextFeild.getText());
+                
+                if (roomService.addAllocatedRooms(al)) {
+                    JOptionPane.showMessageDialog(null, "Allocate rooms success");
+                    clearTextFeilds();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Room allocation error");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        }
+
+    }//GEN-LAST:event_allocateRoomsBtnActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -434,30 +401,100 @@ public class RoomManagement extends javax.swing.JPanel {
 
     private void subject_jComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subject_jComboboxActionPerformed
         // TODO add your handling code here:
+        if (subject_jCombobox.getSelectedIndex() == 0) {
+            System.out.println("---------------");
+        }else{
+
+            try {
+                String tagrname = subject_jCombobox.getSelectedItem().toString();
+
+            if (subject_jTextFeild.getText().contains(tagrname)) {
+                JOptionPane.showMessageDialog(null, "Room already added");
+            }else{
+                if (subject_jTextFeild.getText().equals("")) {
+                    subject_jTextFeild.setText(tagrname);
+                }else{
+                    subject_jTextFeild.setText(subject_jTextFeild.getText()+", "+tagrname);
+                }
+            }
+            } catch (Exception e) {
+            }
+            
+            //tag_jCombobox.setSelectedIndex(1);
+
+        }
     }//GEN-LAST:event_subject_jComboboxActionPerformed
 
     private void clear_subject_text_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_subject_text_btnActionPerformed
         // TODO add your handling code here:
+        subject_jTextFeild.setText("");
     }//GEN-LAST:event_clear_subject_text_btnActionPerformed
 
     private void lecturer_jComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecturer_jComboboxActionPerformed
         // TODO add your handling code here:
+        if (lecturer_jCombobox.getSelectedIndex() == 0) {
+            System.out.println("---------------");
+        }else{
+
+            try {
+                String tagrname = lecturer_jCombobox.getSelectedItem().toString();
+
+            if (lecturer_jTextFeild.getText().contains(tagrname)) {
+                JOptionPane.showMessageDialog(null, "Room already added");
+            }else{
+                if (lecturer_jTextFeild.getText().equals("")) {
+                    lecturer_jTextFeild.setText(tagrname);
+                }else{
+                    lecturer_jTextFeild.setText(lecturer_jTextFeild.getText()+", "+tagrname);
+                }
+            }
+            } catch (Exception e) {
+            }
+            
+            //tag_jCombobox.setSelectedIndex(1);
+
+        }
     }//GEN-LAST:event_lecturer_jComboboxActionPerformed
 
     private void clear_lecturer_text_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_lecturer_text_btnActionPerformed
         // TODO add your handling code here:
+        lecturer_jTextFeild.setText("");
     }//GEN-LAST:event_clear_lecturer_text_btnActionPerformed
 
     private void student_jComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_student_jComboboxActionPerformed
         // TODO add your handling code here:
+        if (student_jCombobox.getSelectedIndex() == 0) {
+            System.out.println("---------------");
+        }else{
+
+            try {
+                String tagrname = student_jCombobox.getSelectedItem().toString();
+
+            if (student_jTextFeild.getText().contains(tagrname)) {
+                JOptionPane.showMessageDialog(null, "Room already added");
+            }else{
+                if (student_jTextFeild.getText().equals("")) {
+                    student_jTextFeild.setText(tagrname);
+                }else{
+                    student_jTextFeild.setText(student_jTextFeild.getText()+", "+tagrname);
+                }
+            }
+            } catch (Exception e) {
+            }
+            
+            //tag_jCombobox.setSelectedIndex(1);
+
+        }
     }//GEN-LAST:event_student_jComboboxActionPerformed
 
     private void clear_student_text_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_student_text_btnActionPerformed
         // TODO add your handling code here:
+        student_jTextFeild.setText("");
     }//GEN-LAST:event_clear_student_text_btnActionPerformed
 
     private void session_jComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_session_jComboboxActionPerformed
         // TODO add your handling code here:
+        clearTextFeilds();
         if (session_jCombobox.getSelectedIndex() == 0) {
             System.out.println("--------------");
             tag_jCombobox.setEnabled(false);
@@ -470,12 +507,8 @@ public class RoomManagement extends javax.swing.JPanel {
             lecturer_jCombobox.setEnabled(true);
             student_jCombobox.setEnabled(true);
             
-            tag_jCombobox.removeAllItems();
-            subject_jCombobox.removeAllItems();
-            lecturer_jCombobox.removeAllItems();
-            student_jCombobox.removeAllItems();
-            
-            
+            removeItem();
+          
             
             String[] sessiontxt = session_jCombobox.getSelectedItem().toString().split("-");
 //            String lecturer = sessiontxt[0];
@@ -494,6 +527,7 @@ public class RoomManagement extends javax.swing.JPanel {
                         
             try {
                 if (sessiontxt[2].trim().toLowerCase().contains("tutorial") || sessiontxt[2].trim().toLowerCase().contains("lecture")) {
+                    removeItem();
                     while (roomResult.next()) {
                         if (roomResult.getString("type").toLowerCase().contains("hall")) {
                             tag_jCombobox.addItem(roomResult.getString(3));
@@ -503,16 +537,15 @@ public class RoomManagement extends javax.swing.JPanel {
                         }
                     }
                 }else if (sessiontxt[2].trim().toLowerCase().contains("lab")) {
+                    removeItem();
                     while (roomResult.next()) {
                         if (roomResult.getString("type").toLowerCase().contains("lab")) {
-                            tag_jCombobox.addItem(roomResult.getString(3));
-                            subject_jCombobox.addItem(roomResult.getString(3));
-                            lecturer_jCombobox.addItem(roomResult.getString(3));
-                            student_jCombobox.addItem(roomResult.getString(3));
                             if (sessiontxt[1].trim().toLowerCase().contains("ios") && roomResult.getString(3).toLowerCase().contains("im")) {
-                                subject_jCombobox.removeAllItems();
-                                lecturer_jCombobox.removeAllItems();
-                                student_jCombobox.removeAllItems();
+                                subject_jCombobox.addItem(roomResult.getString(3));
+                                lecturer_jCombobox.addItem(roomResult.getString(3));
+                                student_jCombobox.addItem(roomResult.getString(3));
+                            }else{
+                                tag_jCombobox.addItem(roomResult.getString(3));
                                 subject_jCombobox.addItem(roomResult.getString(3));
                                 lecturer_jCombobox.addItem(roomResult.getString(3));
                                 student_jCombobox.addItem(roomResult.getString(3));
@@ -528,39 +561,42 @@ public class RoomManagement extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_session_jComboboxActionPerformed
 
-    private void duration_jTextfeildKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_duration_jTextfeildKeyReleased
-        // TODO add your handling code here:
-        //        try {
-            //            int x = Integer.parseInt(duration_jTextfeild.getText());
-            //        } catch (NumberFormatException nfe) {
-            //            JOptionPane.showMessageDialog(null, "Invalid duration");
-            //            duration_jTextfeild.setText("");
-            //        }
-    }//GEN-LAST:event_duration_jTextfeildKeyReleased
+    public void removeItem(){
+        tag_jCombobox.removeAllItems();
+        subject_jCombobox.removeAllItems();
+        lecturer_jCombobox.removeAllItems();
+        student_jCombobox.removeAllItems();
 
-    private void duration_jTextfeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duration_jTextfeildActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_duration_jTextfeildActionPerformed
-
+        tag_jCombobox.addItem("-select-");
+        subject_jCombobox.addItem("-select-");
+        lecturer_jCombobox.addItem("-select-");
+        student_jCombobox.addItem("-select-");
+    }
+    
+    public void clearTextFeilds(){
+        tag_jTextFeild.setText("");
+        subject_jTextFeild.setText("");
+        lecturer_jTextFeild.setText("");
+        student_jTextFeild.setText("");
+    }
+    
     private void tag_jComboboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tag_jComboboxItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_tag_jComboboxItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addSessionsBtn;
+    private javax.swing.JButton allocateRoomsBtn;
     private javax.swing.JButton clear_lecturer_text_btn;
     private javax.swing.JButton clear_student_text_btn;
     private javax.swing.JButton clear_subject_text_btn;
     private javax.swing.JButton clear_tag_text_btn;
-    private javax.swing.JTextField duration_jTextfeild;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

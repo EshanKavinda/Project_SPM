@@ -146,7 +146,10 @@ public class AddEditBuilding extends javax.swing.JPanel {
         
         BuildingService buildingService = new BuildingService();
         
-        if (addEditBuildingBtn.getText().toLowerCase().contains("add")) {
+        if (buildingName.getText().equals("") || buildinglocation.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill all feilds");
+        }else{
+            if (addEditBuildingBtn.getText().toLowerCase().contains("add")) {
             buildingService.addBuilding(building);
         }else{
             if (building_id == 0) {
@@ -162,6 +165,9 @@ public class AddEditBuilding extends javax.swing.JPanel {
                 jTabbedPane.remove(0);
                 jTabbedPane.add("View Buildings", new ViewBuilding(jTabbedPane));
             }
+        }
+        
+        
         
         
 

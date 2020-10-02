@@ -17,7 +17,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
               <Component id="addBulidingBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="addRoomBtn" min="-2" max="-2" attributes="0"/>
@@ -25,10 +25,14 @@
               <Component id="addSubjectsBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="viewSubjectsBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="roomManagementBtn1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="roomManagementBtn2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="roomManagementBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -37,7 +41,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="214" max="32767" attributes="0"/>
+              <EmptySpace pref="150" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="viewSubjectsBtn" min="-2" max="-2" attributes="0"/>
                   <Component id="addSubjectsBtn" min="-2" max="-2" attributes="0"/>
@@ -45,7 +49,11 @@
                   <Component id="addRoomBtn" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="roomManagementBtn" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="roomManagementBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="roomManagementBtn2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="roomManagementBtn1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="83" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -99,12 +107,34 @@
     <Component class="javax.swing.JButton" name="roomManagementBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/icons/Add-Folder-icon_1.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="ADD CONSESTIVE SESSIONS ROOMS"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomManagementBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="roomManagementBtn1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/icons/Actions-view-calendar-list-icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="ROOM MANAGEMENT"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomManagementBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomManagementBtn1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="roomManagementBtn2">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/icons/Add-Folder-icon_1.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="ADD TIME NOT RESERVED"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomManagementBtn2ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

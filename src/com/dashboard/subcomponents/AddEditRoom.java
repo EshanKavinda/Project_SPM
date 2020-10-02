@@ -35,7 +35,6 @@ public class AddEditRoom extends javax.swing.JPanel {
         ResultSet resultSet = bs.getAllBuildings();
         
         try {
-            buildingName_jComboBox.addItem("-Select-");
             while (resultSet.next()) {
                 buildingName_jComboBox.addItem(resultSet.getString("building_name"));
             }
@@ -84,6 +83,12 @@ public class AddEditRoom extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Type");
 
+        capacityroom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                capacityroomKeyReleased(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Capacity");
 
@@ -97,6 +102,8 @@ public class AddEditRoom extends javax.swing.JPanel {
         });
 
         jButton3.setText("Cancel");
+
+        buildingName_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-select-" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -184,7 +191,11 @@ public class AddEditRoom extends javax.swing.JPanel {
         room.setType(roomtype_jComboBox.getSelectedItem().toString());
         
         RoomService roomService = new RoomService();
-        if (addRoomBtn.getText().toLowerCase().contains("add")) {
+        
+        if (buildingName_jComboBox.getSelectedIndex() == 0 || roomname.getText().equals("") || capacityroom.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill all feilds");
+        }else{
+            if (addRoomBtn.getText().toLowerCase().contains("add")) {
             roomService.addRoom(room);
         }else{
             if (room_id == 0) {
@@ -199,9 +210,22 @@ public class AddEditRoom extends javax.swing.JPanel {
                 jTabbedPane.remove(0);
                 jTabbedPane.add("View Rooms", new ViewRoom(jTabbedPane));
             }
+        }
+        
+        
         
         
     }//GEN-LAST:event_addRoomBtnActionPerformed
+
+    private void capacityroomKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capacityroomKeyReleased
+        // TODO add your handling code here:
+        try {
+            int x = Integer.parseInt(capacityroom.getText());
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Invalid Capacity");
+            capacityroom.setText("");
+        }
+    }//GEN-LAST:event_capacityroomKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
