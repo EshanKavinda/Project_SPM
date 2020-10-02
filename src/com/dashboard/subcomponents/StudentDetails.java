@@ -25,6 +25,11 @@ public class StudentDetails extends javax.swing.JPanel {
         this.jTabbedPane = jTabbedPane;
         StudentDService service = new StudentDService();
         jTable2.setModel(DbUtils.resultSetToTableModel(service.tableLoadStudents()));
+        jTable2.getColumnModel().getColumn(0).setHeaderValue("IT Number");
+        jTable2.getColumnModel().getColumn(1).setHeaderValue("Name");
+        jTable2.getColumnModel().getColumn(2).setHeaderValue("Group ID");
+        jTable2.getColumnModel().getColumn(3).setHeaderValue("Sub-Group ID");
+        jTable2.getColumnModel().getColumn(4).setHeaderValue("Center");
     }
 
     /**

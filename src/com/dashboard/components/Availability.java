@@ -5,17 +5,56 @@
  */
 package com.dashboard.components;
 
+import com.models.Available;
+import com.models.Ays;
+import com.services.Avalibilitys;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author ESHAN
  */
 public class Availability extends javax.swing.JPanel {
+    
+    private JTabbedPane jTabbedPane;
+    private int av_Id = 0;
+    private int i = 0;
 
     /**
      * Creates new form Availability
      */
-    public Availability() {
+    public Availability(JTabbedPane jTabbedPane) {
         initComponents();
+        this.jTabbedPane = jTabbedPane;
+        Avalibilitys avs = new Avalibilitys();
+        jTable1.setModel(DbUtils.resultSetToTableModel(avs.tableLoadAvailable()));
+        
+        
+        ResultSet resultSet = avs.tableLoadSession();
+        try {
+            while(resultSet.next()){
+                sessionCombo.addItem(resultSet.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Availability.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ResultSet resultSet1 = avs.tableLoadTimeslots();
+        try {
+            while (resultSet1.next()) {
+                timeCombo.addItem(resultSet1.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Availability.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    
     }
 
     /**
@@ -28,29 +67,197 @@ public class Availability extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        sessionCombo = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        timeCombo = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
-        jLabel1.setText("Availability");
+        jLabel1.setText("Select Section ID");
+
+        jLabel2.setText("Select Time Slot ID");
+
+        timeCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeComboActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Allocate Time");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Allocated Time Slots");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel4.setText("jLabel4");
+
+        jButton2.setText("Remove");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(392, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(sessionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 958, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(timeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 958, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(503, 503, 503)
+                        .addComponent(jLabel3)))
+                .addContainerGap(114, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(240, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sessionCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(timeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        
+         if(row >= 0){
+            int aId = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            String sID = jTable1.getValueAt(row, 1).toString().toUpperCase();
+            String tID = jTable1.getValueAt(row, 1).toString().toUpperCase();
+            
+            int i = JOptionPane.showConfirmDialog(this, "Delete "+sID+tID,"Confirm",JOptionPane.YES_NO_OPTION);
+            if(i==0){
+                Avalibilitys service = new Avalibilitys();
+                service.deleteAvailable(aId);
+                 JOptionPane.showMessageDialog(this, "Time slot addition Sucessfully Deleted");
+                
+            }
+             jTabbedPane.remove(0);
+             jTabbedPane.add("Available",new Availability(jTabbedPane));
+        }else{
+             JOptionPane.showMessageDialog(this,"Please Select the Row");
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        boolean aAvail = false;
+        Available ay = new Available();
+        ay.setAvId(av_Id);
+        ay.setSeId(sessionCombo.getSelectedItem().toString());
+        ay.setTiId(timeCombo.getSelectedItem().toString());
+        
+        Avalibilitys as = new Avalibilitys();
+        ResultSet resultSet = as.tableLoadAvailable();
+        
+        try {
+            while (resultSet.next()) {
+                if(resultSet.getString(2).equals(sessionCombo.getSelectedItem().toString())){
+                    aAvail = true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Availability.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(sessionCombo.getSelectedItem().equals("")){
+            JOptionPane.showMessageDialog(null, "Please Select Session ID!");
+        }else if(timeCombo.getSelectedItem().equals("")){
+            JOptionPane.showMessageDialog(null, "Please Select Time ID !");
+        }else if(aAvail){
+            JOptionPane.showMessageDialog(null, "All Ready Allocate Session !");
+        }else{
+            as.addGroupID(ay);
+            i = JOptionPane.showConfirmDialog(this, "SucessFully Generated.","SucessFull",JOptionPane.DEFAULT_OPTION);
+           
+            if(i==0){
+               jTabbedPane.remove(0);
+               jTabbedPane.add("Availiable",new Availability(jTabbedPane));
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void timeComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeComboActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> sessionCombo;
+    private javax.swing.JComboBox<String> timeCombo;
     // End of variables declaration//GEN-END:variables
 }

@@ -74,7 +74,7 @@ public class TagServices {
      }
      
       public ResultSet tableLoadTags(){
-        String loadQueary = "SELECT tag_id AS 'Tag ID',tag_type AS 'Tag Name' FROM tags";
+        String loadQueary = "SELECT * FROM tags";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);

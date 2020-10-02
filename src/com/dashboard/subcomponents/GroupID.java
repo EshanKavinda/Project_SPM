@@ -6,6 +6,7 @@
 package com.dashboard.subcomponents;
 
 
+import com.models.Ays;
 import com.services.GroupIdService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +30,10 @@ public class GroupID extends javax.swing.JPanel {
         initComponents();
         this.jTabbedPane = jTabbedPane;
         GroupIdService service = new GroupIdService();
+        jTable4.setModel(DbUtils.resultSetToTableModel(service.tableLoadGID()));
+        jTable4.getColumnModel().getColumn(0).setHeaderValue("ID");
+        jTable4.getColumnModel().getColumn(1).setHeaderValue("Group ID");
+        
 //comboBox Ays
         ResultSet resultset = service.tableLoadAys();
         
@@ -74,11 +79,11 @@ public class GroupID extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        generateBtn = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
         aysCombo = new javax.swing.JComboBox<>();
         proCombo = new javax.swing.JComboBox<>();
         gnCombo = new javax.swing.JComboBox<>();
@@ -92,11 +97,11 @@ public class GroupID extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel5.setText("Select Group Number");
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton1.setText("Generate Group ID");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        generateBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        generateBtn.setText("Generate Group ID");
+        generateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                generateBtnActionPerformed(evt);
             }
         });
 
@@ -111,15 +116,20 @@ public class GroupID extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable4MouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTable4);
 
         jLabel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton2.setText("Delete");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        deleteBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                deleteBtnActionPerformed(evt);
             }
         });
 
@@ -133,7 +143,7 @@ public class GroupID extends javax.swing.JPanel {
                 .addGap(174, 174, 174)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61))
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -150,7 +160,7 @@ public class GroupID extends javax.swing.JPanel {
                                 .addComponent(aysCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(generateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(36, 36, 36)))
                 .addGap(127, 127, 127))
         );
@@ -170,7 +180,7 @@ public class GroupID extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(gnCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(generateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -178,7 +188,7 @@ public class GroupID extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -197,20 +207,83 @@ public class GroupID extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
+        
+        boolean gAvailibility = false;
+        Ays group = new Ays();
+        group.setAysId(g_Id);
+        group.setAcademicYS(aysCombo.getSelectedItem().toString()+"."+proCombo.getSelectedItem().toString()+"."+gnCombo.getSelectedItem().toString());
+        
+        GroupIdService gs = new GroupIdService();
+        ResultSet resultSet = gs.tableLoadGID();
+        
+       try {
+           while (resultSet.next()) {
+               if(resultSet.getString(2).equals(group.getAcademicYS().toString())){
+                   gAvailibility = true;
+               }
+           }
+       } catch (SQLException ex) {
+           Logger.getLogger(GroupID.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
+       if(aysCombo.getSelectedItem().equals("")){
+           JOptionPane.showMessageDialog(null, "Please Select Academic Year!");
+       }else if(proCombo.getSelectedItem().equals("")){
+           JOptionPane.showMessageDialog(null, "Please Select Programme !");
+       }else if(gnCombo.getSelectedItem().equals("")){
+           JOptionPane.showMessageDialog(null, "Please Select Group Number !");
+       }else if(gAvailibility){
+           JOptionPane.showMessageDialog(null, "All Ready Generated Group ID !");
+       }else{
+           gs.addGroupID(group);
+           i = JOptionPane.showConfirmDialog(this, "SucessFully Generated.","SucessFull",JOptionPane.DEFAULT_OPTION);
+           
+           if(i==0){
+               jTabbedPane.remove(0);
+               jTabbedPane.add("GroupID",new GroupID(jTabbedPane));
+           }
+       }
+    }//GEN-LAST:event_generateBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        int row = jTable4.getSelectedRow();
+        
+         if(row >= 0){
+            int gId = Integer.parseInt(jTable4.getValueAt(row, 0).toString());
+            String groupID = jTable4.getValueAt(row, 1).toString().toUpperCase();
+            
+            int i = JOptionPane.showConfirmDialog(this, "Delete "+groupID,"Confirm",JOptionPane.YES_NO_OPTION);
+            if(i==0){
+                GroupIdService service = new GroupIdService();
+                service.deleteGroupID(gId);
+                 JOptionPane.showMessageDialog(this, "Group ID Sucessfully Deleted");
+                
+            }
+             jTabbedPane.remove(0);
+             jTabbedPane.add("GroupID",new GroupID(jTabbedPane));
+        }else{
+             JOptionPane.showMessageDialog(this,"Please Select the Row");
+        }
+        
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+        // TODO add your handling code here:
+        int row = jTable4.getSelectedRow();
+        String GroupID = jTable4.getValueAt(row, 1).toString();
+        jLabel7.setText(GroupID);
+        
+    }//GEN-LAST:event_jTable4MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> aysCombo;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton generateBtn;
     private javax.swing.JComboBox<String> gnCombo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

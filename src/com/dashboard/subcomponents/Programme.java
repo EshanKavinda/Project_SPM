@@ -34,6 +34,9 @@ public class Programme extends javax.swing.JPanel {
         this.jTabbedPane = jTabbedPane;
       programmeServices service = new programmeServices();
       jTable1.setModel(DbUtils.resultSetToTableModel(service.tableLoadProgrammes()));
+      jTable1.getColumnModel().getColumn(0).setHeaderValue("ID");
+      jTable1.getColumnModel().getColumn(1).setHeaderValue("Programme Name");
+      jTable1.getColumnModel().getColumn(2).setHeaderValue("Programme Short Name");
     }
 
     /**
@@ -200,12 +203,13 @@ public class Programme extends javax.swing.JPanel {
                     ps.addProgramme(programme);
                      i = JOptionPane.showConfirmDialog(this, "SucessFully Added.","SucessFull",JOptionPane.DEFAULT_OPTION);
 
-                }else{
-                    System.out.println("Error");
+                }else if(jButton1.getText().toLowerCase().contains("edit")){
+                    ps.updateProgramme(programme);
+                    i = JOptionPane.showConfirmDialog(this, "Sucessfully Edited.","SucessFull",JOptionPane.DEFAULT_OPTION);
                 }
 
                 if(i==0){
-                    System.out.println("Sucess Sent");
+                    
                     jTabbedPane.remove(0);
                jTabbedPane.add("Programme",new Programme(jTabbedPane));
             }
@@ -215,10 +219,13 @@ public class Programme extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
-        String pId = jTable1.getValueAt(row, 0).toString();
+        programme_Id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
         String pName = jTable1.getValueAt(row, 1).toString();
         String spName = jTable1.getValueAt(row, 2).toString();
         jLabel2.setText(pName);
+        jTextField1.setText(pName);
+        jTextField2.setText(spName);
+        jButton1.setText("Edit");
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

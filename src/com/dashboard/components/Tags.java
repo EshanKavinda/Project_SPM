@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.dashboard.components;
 
 import com.models.Tag;
@@ -31,6 +27,8 @@ public class Tags extends javax.swing.JPanel {
       this.jTabbedPane = jTabbedPane;
       TagServices service = new TagServices();
       jTable1.setModel(DbUtils.resultSetToTableModel(service.tableLoadTags()));
+      jTable1.getColumnModel().getColumn(0).setHeaderValue("ID");
+      jTable1.getColumnModel().getColumn(1).setHeaderValue("Tag Name");
         
     }
 
@@ -215,7 +213,6 @@ public class Tags extends javax.swing.JPanel {
             try {
                 while(resultSet.next()){
                     if (resultSet.getString(2).toLowerCase().equals(jTextField1.getText().toLowerCase().toString())) {
-                        //JOptionPane.showMessageDialog(null, "All ready");
                         tagAvailbility = true;
                     }
                 }
@@ -224,9 +221,9 @@ public class Tags extends javax.swing.JPanel {
             }
             
             if(jTextField1.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Empty");
+                JOptionPane.showMessageDialog(null, "Please Fill the Tag Name!");
             }else if(tagAvailbility){
-                JOptionPane.showMessageDialog(null, "All ready");
+                JOptionPane.showMessageDialog(null, "All ready Added Tag Name!");
             }else{
                 if(AddB.getText().toLowerCase().contains("add")){
                     tagService.addTag(tag);
@@ -241,11 +238,6 @@ public class Tags extends javax.swing.JPanel {
                     jTabbedPane.add("Tags",new Tags(jTabbedPane));
                 }
             }
-            
-
-            
-
-        
     }//GEN-LAST:event_AddBActionPerformed
 
 //Delete Tags

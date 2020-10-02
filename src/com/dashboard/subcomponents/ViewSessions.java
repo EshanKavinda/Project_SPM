@@ -27,7 +27,7 @@ public class ViewSessions extends javax.swing.JPanel {
         this.jTabbedPane = jTabbedPane;
         SessionService service = new SessionService();
         sessions_jTable.setModel(DbUtils.resultSetToTableModel(service.tableLoadSessions()));
-//        sessions_jTable.getColumnModel().getColumn(0).setHeaderValue("ID");
+   //     sessions_jTable.getColumnModel().getColumn(0).setHeaderValue("ID");
         
     }
 

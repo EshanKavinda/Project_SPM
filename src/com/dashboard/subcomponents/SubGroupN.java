@@ -8,6 +8,10 @@ package com.dashboard.subcomponents;
 import com.dashboard.components.*;
 import com.models.SubGroupNumber;
 import com.services.GroupNumberServices;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import net.proteanit.sql.DbUtils;
@@ -32,6 +36,8 @@ public class SubGroupN extends javax.swing.JPanel {
         this.jTabbedPane = jTabbedPane;
         GroupNumberServices services = new GroupNumberServices();
         jTable1.setModel(DbUtils.resultSetToTableModel(services.tableLoadSGN()));
+        jTable1.getColumnModel().getColumn(0).setHeaderValue("ID");
+        jTable1.getColumnModel().getColumn(1).setHeaderValue("Sub-Group Number");
     }
 
     /**
@@ -59,6 +65,11 @@ public class SubGroupN extends javax.swing.JPanel {
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
             }
         });
 
@@ -158,25 +169,43 @@ public class SubGroupN extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-         SubGroupNumber sgn = new SubGroupNumber();
+
+        boolean sgnAvalibility = false;
+        SubGroupNumber sgn = new SubGroupNumber();
         sgn.setSGnId(SGN_id);
         sgn.setSGroupNumber(jTextField1.getText().toString());
         
         GroupNumberServices sgns = new GroupNumberServices();
+        ResultSet resultSet = sgns.tableLoadSGN();
         
-        if (jButton1.getText().toLowerCase().contains("add")) {
-            sgns.addSGN(sgn);
-             i = JOptionPane.showConfirmDialog(this, "SucessFully Added.","SucessFull",JOptionPane.DEFAULT_OPTION);
-        }else{
-            System.out.println("Error");
-        }
-        if(i==0){
-                System.out.println("Sucess Sent");
-                jTabbedPane.remove(0);
-           jTabbedPane.add("Sub Group Number",new SubGroupN(jTabbedPane));
+        try {
+            while (resultSet.next()) {
+                if (resultSet.getString(2).equals(jTextField1.getText().toString())) {
+                    sgnAvalibility = true;
+                }
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(SubGroupN.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        
+        if(jTextField1.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please Fill the Sub Group Number !");
+        }else if (sgnAvalibility) {
+            JOptionPane.showMessageDialog(null, "All Ready Added Sub Group Number!");
+        }else{
+            if (jButton1.getText().toLowerCase().contains("add")) {
+                 sgns.addSGN(sgn);
+                  i = JOptionPane.showConfirmDialog(this, "SucessFully Added.","SucessFull",JOptionPane.DEFAULT_OPTION);
+             }else if (jButton1.getText().toLowerCase().contains("edit")){
+                sgns.updateSGN(sgn);
+                i = JOptionPane.showConfirmDialog(this, "Sucessfully Edited.","SucessFull",JOptionPane.DEFAULT_OPTION);
+             }
+             if(i==0){
+                    jTabbedPane.remove(0);
+                    jTabbedPane.add("Sub Group Number",new SubGroupN(jTabbedPane));
+                 }
+             }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -185,15 +214,46 @@ public class SubGroupN extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+           int row = jTable1.getSelectedRow();
+        
+        if(row >= 0) {
+            int sgnId = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            String sgNumber = jTable1.getValueAt(row, 1).toString().toUpperCase();
+            
+            
+            
+            int i = JOptionPane.showConfirmDialog(this, "Delete "+sgNumber,"Confirm",JOptionPane.YES_NO_OPTION);
+            if(i==0){
+                 GroupNumberServices gns = new GroupNumberServices();
+                gns.deleteSGN(sgnId);
+                JOptionPane.showMessageDialog(this, "Sub Group Number Sucessfully Deleted");
+            }
+           jTabbedPane.remove(0);
+           jTabbedPane.add("SubGroupNumber",new SubGroupN(jTabbedPane));
+        }else{
+            JOptionPane.showMessageDialog(this,"Please Select the Row");
+        }  
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here
          int row = jTable1.getSelectedRow();
-        String sprogrammeName = jTable1.getValueAt(row, 0).toString();
-        jLabel2.setText(sprogrammeName);
+         SGN_id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+         String sgNumber = jTable1.getValueAt(row, 1).toString();
+        jLabel2.setText(sgNumber);
+        jTextField1.setText(sgNumber);
+        jButton1.setText("Edit");
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        
+           try{
+               int x = Integer.parseInt(jTextField1.getText());  
+           }catch(NumberFormatException ne){
+               JOptionPane.showMessageDialog(null, "Only Numbers!");
+               jTextField1.setText("");
+           }
+    }//GEN-LAST:event_jTextField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

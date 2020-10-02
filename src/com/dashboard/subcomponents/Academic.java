@@ -30,6 +30,8 @@ public class Academic extends javax.swing.JPanel {
         this.jTabbedPane = jTabbedPane;
         AysService service = new AysService();
         jTable1.setModel(DbUtils.resultSetToTableModel(service.tableLoadAys()));
+        jTable1.getColumnModel().getColumn(0).setHeaderValue("ID");
+        jTable1.getColumnModel().getColumn(1).setHeaderValue("Academic Year & Semester");
     }
 
     /**
@@ -238,9 +240,9 @@ public class Academic extends javax.swing.JPanel {
         }
         
         if(jTextField2.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Empty");
+            JOptionPane.showMessageDialog(null, "Please Fill Academic Year!");
         }else if(aysAvailbility){
-            JOptionPane.showMessageDialog(null, "All Ready");
+            JOptionPane.showMessageDialog(null, "All Ready Added Academic Year & Semester!");
         }else{
             if(jButton2.getText().toLowerCase().contains("add")){
                 aysService.addAys(ays);

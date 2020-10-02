@@ -6,7 +6,12 @@
 package com.dashboard.subcomponents;
 
 
+import com.models.Ays;
 import com.services.SubGroupIdService;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import net.proteanit.sql.DbUtils;
@@ -29,8 +34,30 @@ public class SubGroupID extends javax.swing.JPanel {
         initComponents();
         this.jTabbedPane = jTabbedPane;
         SubGroupIdService service = new SubGroupIdService();
-         
         
+        jTable1.setModel(DbUtils.resultSetToTableModel(service.tableLoadSGID()));
+        jTable1.getColumnModel().getColumn(0).setHeaderValue("ID");
+        jTable1.getColumnModel().getColumn(1).setHeaderValue("Sub-Group ID");
+        
+        ResultSet resultset = service.tableLoadGID();
+        
+        try {
+            while (resultset.next()) {
+                gIDCombo.addItem(resultset.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SubGroupID.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ResultSet resultsets = service.tableLoadSGN();
+         
+        try {
+            while (resultsets.next()) {
+                sGNCombo.addItem(resultsets.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SubGroupID.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -46,22 +73,20 @@ public class SubGroupID extends javax.swing.JPanel {
         buttonGroupSGI = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        gIDCombo = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        sGNCombo = new javax.swing.JComboBox<>();
+        generateBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("Select Group ID");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -71,7 +96,7 @@ public class SubGroupID extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(gIDCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -80,7 +105,7 @@ public class SubGroupID extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(gIDCombo, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -95,7 +120,7 @@ public class SubGroupID extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sGNCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -104,12 +129,17 @@ public class SubGroupID extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sGNCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jButton1.setText("Generate Sub-Group ID");
+        generateBtn.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        generateBtn.setText("Generate Sub-Group ID");
+        generateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateBtnActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,12 +152,22 @@ public class SubGroupID extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton4.setText("Delete");
+        deleteBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -137,7 +177,7 @@ public class SubGroupID extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
         jPanel5Layout.setVerticalGroup(
@@ -146,7 +186,7 @@ public class SubGroupID extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(jButton4)
+                .addComponent(deleteBtn)
                 .addContainerGap())
         );
 
@@ -160,7 +200,7 @@ public class SubGroupID extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                    .addComponent(generateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(28, 28, 28)
@@ -175,7 +215,7 @@ public class SubGroupID extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(generateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
@@ -186,14 +226,82 @@ public class SubGroupID extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
+        // TODO add your handling code here:
+        
+        boolean sgAvailibility = false;
+        Ays sgroup = new Ays();
+        sgroup.setAysId(sg_Id);
+        sgroup.setAcademicYS(gIDCombo.getSelectedItem().toString()+"."+sGNCombo.getSelectedItem().toString());
+        
+        SubGroupIdService sgs = new SubGroupIdService();
+        ResultSet resultSet = sgs.tableLoadSGID();
+        
+       try {
+           while (resultSet.next()) {
+               if(resultSet.getString(2).equals(sgroup.getAcademicYS().toString())){
+                   sgAvailibility = true;
+               }
+           }
+       } catch (SQLException ex) {
+           Logger.getLogger(GroupID.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
+       if(gIDCombo.getSelectedItem().equals("")){
+           JOptionPane.showMessageDialog(null, "Please Select Academic Year!");
+       }else if(sGNCombo.getSelectedItem().equals("")){
+           JOptionPane.showMessageDialog(null, "Please Select Programme !");
+       }else if(sgAvailibility){
+           JOptionPane.showMessageDialog(null, "All Ready Generated Sub Group ID !");
+       }else{
+           sgs.addSGroupID(sgroup);
+           i = JOptionPane.showConfirmDialog(this, "SucessFully Generated.","SucessFull",JOptionPane.DEFAULT_OPTION);
+           
+           if(i==0){
+               jTabbedPane.remove(0);
+               jTabbedPane.add("SubGroupID",new SubGroupID(jTabbedPane));
+           }
+       }
+    }//GEN-LAST:event_generateBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        
+        int row = jTable1.getSelectedRow();
+        
+         if(row >= 0){
+            int sgId = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            String sgroupID = jTable1.getValueAt(row, 1).toString().toUpperCase();
+            
+            int i = JOptionPane.showConfirmDialog(this, "Delete "+sgroupID,"Confirm",JOptionPane.YES_NO_OPTION);
+            if(i==0){
+                SubGroupIdService service = new SubGroupIdService();
+                service.deleteSGroupID(sgId);
+                 JOptionPane.showMessageDialog(this, "Sub Group ID Sucessfully Deleted");
+                
+            }
+             jTabbedPane.remove(0);
+             jTabbedPane.add("SubGroupID",new SubGroupID(jTabbedPane));
+        }else{
+             JOptionPane.showMessageDialog(this,"Please Select the Row");
+        }
+        
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+         int row = jTable1.getSelectedRow();
+         String sgroupID = jTable1.getValueAt(row, 1).toString();
+            jLabel3.setText(sgroupID);
+    }//GEN-LAST:event_jTable1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupGI;
     private javax.swing.ButtonGroup buttonGroupSGI;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JComboBox<String> gIDCombo;
+    private javax.swing.JButton generateBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -203,5 +311,6 @@ public class SubGroupID extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> sGNCombo;
     // End of variables declaration//GEN-END:variables
 }

@@ -79,7 +79,7 @@ public class programmeServices {
        
        
        public ResultSet tableLoadProgrammes(){
-        String loadQueary = "SELECT programme_id AS 'ID',programme_name AS 'Programme Name', sprogramme_name AS 'Short Name' FROM programmes";
+        String loadQueary = "SELECT * FROM programmes";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);

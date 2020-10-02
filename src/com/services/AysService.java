@@ -40,7 +40,7 @@ public class AysService {
     }
     
     public ResultSet tableLoadAys(){
-        String loadQueary = "SELECT ays_id AS 'ID',academicys AS 'Academic Year & Semester' FROM ays";
+        String loadQueary = "SELECT * FROM ays";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);

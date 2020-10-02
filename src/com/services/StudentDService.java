@@ -26,29 +26,7 @@ public class StudentDService {
     ResultSet resultSet;
     
     
-    public void updateStudent(studentsDetails sdetails){
-        String itNumber = sdetails.getItNumber();
-        String name = sdetails.getName();
-        String groupId = sdetails.getGroupId();
-        String subgroupId = sdetails.getSubGroupId();
-        String center = sdetails.getCenter();
-        
-        String updateQuearyStudent = "UPDATE Students SET `name`='"+name+"',`group_id`='"+groupId+"',`subgroup_id`='"+subgroupId+"',`center`='"+center+"' where `itNumber`='"+itNumber+"'";
-        
-        
-        try {
-            connection = SQLite_Connection.connect();
-            preparedStatement = connection.prepareStatement(updateQuearyStudent);
-            boolean result = preparedStatement.execute();
-            System.out.println("DB status: "+result);
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }finally {		
-                 // Services.colsedConnections();
-        }  
-    }
-    
-      public void deleteStudent(String itNumber){
+    public void deleteStudent(String itNumber){
         
         String deleteQuearystudent = "DELETE FROM students where `itNumber`='"+itNumber+"'";
         
@@ -65,7 +43,7 @@ public class StudentDService {
     }
       
         public ResultSet tableLoadStudents(){
-        String loadQueary = "SELECT itNumber AS 'IT Number',name AS 'Name',group_id AS 'Group ID',subgroup_id AS 'Sub-Group ID',center AS 'Center' FROM students";
+        String loadQueary = "SELECT * FROM students";
         try {
                 connection = SQLite_Connection.connect();
                 preparedStatement = connection.prepareStatement(loadQueary);
